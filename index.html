@@ -25,7 +25,11 @@ $(window).load(function(){
 var img = new Image();
 img.src = 'logo.png';
 var ratio = 2;
-var cropImage = function() {
+var cropImage = function(altSrc) {
+    if(altSrc) {
+      img.src = altSrc;
+    }
+
     $('#images').empty();
     var cropMarginWidth = 5;
     var canvasWidth = img.width - ratio * cropMarginWidth;
@@ -101,6 +105,7 @@ var reader = new FileReader();
 function displayLoadedImage(el) {
   imageSrc = el.target.result;
   $('#uploaded').attr('src', imageSrc);
+  cropImage(imageSrc);
 }
 
 $('#image_file').on('change', function() {
