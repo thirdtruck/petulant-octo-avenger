@@ -1,113 +1,77 @@
 <!DOCTYPE html>
-<!-- saved from url=(0039)http://jsfiddle.net/gion_13/MmFkL/show/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <title>Crop Prototype</title>
-  
-  <script type="text/javascript" src="support/jquery-1.8.3.js"></script>
-  <link rel="stylesheet" type="text/css" href="support/normalize.css">
-  
-  
-  <link rel="stylesheet" type="text/css" href="support/result-light.css">
-  
-  <style type="text/css">
-  
-  body {
-    background-color: teal;
-  }
-    
-  </style>
-  
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted">Project name</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Jumbotron heading</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-lg btn-success" href="#">Sign up today</a></p>
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>&copy; Company 2013</p>
+      </div>
+
+    </div> <!-- /container -->
 
 
-<script type="text/javascript">//<![CDATA[ 
-$(window).load(function(){
-var img = new Image();
-img.src = 'logo.png';
-var ratio = 2;
-var cropImage = function(altSrc) {
-    if(altSrc) {
-      img.src = altSrc;
-    }
-
-    $('#images').empty();
-    var cropMarginWidth = 5;
-    var canvasWidth = img.width / ratio;
-    var canvasHeight = img.height / ratio;
-    var canvas = $('<canvas width="'+ canvasWidth +'" height="'+ canvasHeight +'"/>')
-                .hide()
-                .appendTo('#images');
-    var ctx = canvas.get(0).getContext('2d');
-    var a = $('<a download="cropped-image" title="click to download the image" />');
-    var cropCoords = {
-        topLeft : {
-            x : cropMarginWidth,
-            y : cropMarginWidth 
-        },
-        bottomRight :{
-            x : img.width - cropMarginWidth,
-            y : img.height - cropMarginWidth
-        }
-    };
-
-    var topLeftX = cropCoords.topLeft.x;
-    var topLeftY = cropCoords.topLeft.y;
-    var bottomRightX = cropCoords.bottomRight.x;
-    var bottomRightY = cropCoords.bottomRight.y;
-    ctx.drawImage(img, topLeftX, topLeftY, bottomRightX, bottomRightY, 0, 0, img.width, img.height  );
-    var base64ImageData = canvas.get(0).toDataURL();
-    
-    canvas.remove();
-
-    var output = { image_data: base64ImageData };
-    $.post('./upload_image', output, function() {
-      $.get('./uploaded_image_src', function(data) {
-        $('#remote').attr('src', data);
-      });
-    });
-
-    ratio += 1;
-    ratio = ratio > 10 ? 2 : ratio;
-};
-$(img).load(function(){ cropImage(); })
-$('#crop-more').on('click', function() { cropImage() });
-
-var reader = new FileReader();
-
-function displayLoadedImage(el) {
-  imageSrc = el.target.result;
-  $('#uploaded').attr('src', imageSrc);
-  cropImage(imageSrc);
-}
-
-$('#image_file').on('change', function() {
-  var $this = $(this);
-  var file = $this[0].files[0];
-  $(reader).on('load', displayLoadedImage);
-  reader.readAsDataURL(file);
-});
-
-});//]]>  
-
-</script>
-
-
-<style type="text/css"></style></head>
-<body>
-  
-  <form id="upload_form" enctype="multipart/form-data" method="post">
-    <input type="file" name="image_file" id="image_file" />
-    <h2>Uploaded</h2>
-    <h2><a href="#" id="crop-more">Crop More</a></h2>
-    <img id="uploaded" />
-    <img id='remote' src="" style="border: 1px solid black;" />
-  </form>
-
-
-<div id="images">
-
-</div>
-
-
-
-</body></html>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>
