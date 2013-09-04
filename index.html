@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://jsfiddle.net/gion_13/MmFkL/show/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Crop Prototype</title>
+  
+  <script type="text/javascript" src="support/jquery-1.8.3.js"></script>
+  <link rel="stylesheet" type="text/css" href="support/normalize.css">
+  
+  
+  <link rel="stylesheet" type="text/css" href="support/result-light.css">
+  
+  <style type="text/css">
+  
+  body {
+    background-color: teal;
+  }
+    
+  </style>
+  
+
+
+<script type="text/javascript">//<![CDATA[ 
+$(window).load(function(){
+var img = new Image();
+img.src = 'logo.png';
+var ratio = 2;
+var cropImage = function() {
+    $('#images').empty();
+    var cropMarginWidth = 5;
+    var canvasWidth = img.width - ratio * cropMarginWidth;
+    var canvasHeight = img.height - ratio * cropMarginWidth;
+    var canvas = $('<canvas width="'+ canvasWidth +'" height="'+ canvasHeight +'"/>')
+                .hide()
+                .appendTo('#images');
+    var ctx = canvas.get(0).getContext('2d');
+    var a = $('<a download="cropped-image" title="click to download the image" />');
+    var cropCoords = {
+        topLeft : {
+            x : cropMarginWidth,
+            y : cropMarginWidth 
+        },
+        bottomRight :{
+            x : img.width - cropMarginWidth,
+            y : img.height - cropMarginWidth
+        }
+    };
+
+    console.log(cropCoords);
+    
+    var topLeftX = cropCoords.topLeft.x;
+    var topLeftY = cropCoords.topLeft.y;
+    var bottomRightX = cropCoords.bottomRight.x;
+    var bottomRightY = cropCoords.bottomRight.y;
+    ctx.drawImage(img, topLeftX, topLeftY, bottomRightX, bottomRightY, 0, 0, img.width, img.height  );
+    var base64ImageData = canvas.get(0).toDataURL();
+    
+    
+    a
+        .attr('href', base64ImageData)
+        .text('cropped image')
+        .appendTo('#images');
+    
+    a
+        .clone()
+        .attr('href', img.src)
+        .text('original image')
+        .attr('download','original-image')
+        .appendTo('#images');
+
+    var $originalImg = $('<img />');
+    $originalImg
+        .attr('src', img.src)
+        .appendTo('#images');
+
+    var $previewImg = $('<img />');
+    $previewImg
+        .attr('src', base64ImageData)
+        .attr('width', canvasWidth)
+        .attr('height', canvasHeight)
+        .appendTo('#images');
+    
+    
+    canvas.remove();
+
+    var output = { image_data: base64ImageData };
+    $.post('./upload_image', output, function() {
+      $.get('./uploaded_image_src', function(data) {
+        $('#remote').attr('src', data);
+      });
+    });
+
+    ratio += 1;
+    ratio = ratio > 10 ? 2 : ratio;
+};
+$(img).load(function(){ cropImage(); })
+$('#reload').on('click', function() { cropImage() });
+
+});//]]>  
+
+</script>
+
+
+<style type="text/css"></style></head>
+<body>
+  
+  
+  <a href="#" id="reload">Reload</a>
+
+  <img src="cropped.png" />
+
+  <img id='remote' src="" style="border: 1px solid black;" />
+
+<div id="images">
+
+</div>
+
+
+
+</body></html>

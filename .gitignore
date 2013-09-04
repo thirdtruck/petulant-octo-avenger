@@ -1,0 +1,6 @@
+# vim temporary files
+*.swp
+*.swo
+tmp
+
+uploaded_image_*.png
