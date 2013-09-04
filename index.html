@@ -17,6 +17,7 @@
 
     <script src="dist/js/jquery-1.8.3.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
+    <script src="cropper.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,10 +35,15 @@
 
       <div class="jumbotron">
         <p class="lead">Upload your image below!</p>
-        <p><input id="upload" type="file" class="btn btn-lg btn-success" href="#"></p>
+        <form id="upload_form" enctype="multipart/form-data" method="post">
+          <p><input id="uploaded-image" type="file" class="btn btn-lg btn-success" href="#"></p>
+        </form>
       </div>
 
       <div class="row">
+        <div id="preview-image-holder" class="col-lg-12">
+          <img id="preview-image" />
+        </div>
       </div>
 
       <div class="footer">
