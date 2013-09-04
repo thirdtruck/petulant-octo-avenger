@@ -32,8 +32,8 @@ var cropImage = function(altSrc) {
 
     $('#images').empty();
     var cropMarginWidth = 5;
-    var canvasWidth = img.width - ratio * cropMarginWidth;
-    var canvasHeight = img.height - ratio * cropMarginWidth;
+    var canvasWidth = img.width / ratio;
+    var canvasHeight = img.height / ratio;
     var canvas = $('<canvas width="'+ canvasWidth +'" height="'+ canvasHeight +'"/>')
                 .hide()
                 .appendTo('#images');
@@ -50,40 +50,12 @@ var cropImage = function(altSrc) {
         }
     };
 
-    console.log(cropCoords);
-    
     var topLeftX = cropCoords.topLeft.x;
     var topLeftY = cropCoords.topLeft.y;
     var bottomRightX = cropCoords.bottomRight.x;
     var bottomRightY = cropCoords.bottomRight.y;
     ctx.drawImage(img, topLeftX, topLeftY, bottomRightX, bottomRightY, 0, 0, img.width, img.height  );
     var base64ImageData = canvas.get(0).toDataURL();
-    
-    
-    a
-        .attr('href', base64ImageData)
-        .text('cropped image')
-        .appendTo('#images');
-    
-    a
-        .clone()
-        .attr('href', img.src)
-        .text('original image')
-        .attr('download','original-image')
-        .appendTo('#images');
-
-    var $originalImg = $('<img />');
-    $originalImg
-        .attr('src', img.src)
-        .appendTo('#images');
-
-    var $previewImg = $('<img />');
-    $previewImg
-        .attr('src', base64ImageData)
-        .attr('width', canvasWidth)
-        .attr('height', canvasHeight)
-        .appendTo('#images');
-    
     
     canvas.remove();
 
@@ -98,7 +70,7 @@ var cropImage = function(altSrc) {
     ratio = ratio > 10 ? 2 : ratio;
 };
 $(img).load(function(){ cropImage(); })
-$('#reload').on('click', function() { cropImage() });
+$('#crop-more').on('click', function() { cropImage() });
 
 var reader = new FileReader();
 
@@ -126,14 +98,11 @@ $('#image_file').on('change', function() {
   <form id="upload_form" enctype="multipart/form-data" method="post">
     <input type="file" name="image_file" id="image_file" />
     <h2>Uploaded</h2>
+    <h2><a href="#" id="crop-more">Crop More</a></h2>
     <img id="uploaded" />
+    <img id='remote' src="" style="border: 1px solid black;" />
   </form>
-  
-  <a href="#" id="reload">Reload</a>
 
-  <img src="cropped.png" />
-
-  <img id='remote' src="" style="border: 1px solid black;" />
 
 <div id="images">
 
