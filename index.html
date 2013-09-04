@@ -96,6 +96,20 @@ var cropImage = function() {
 $(img).load(function(){ cropImage(); })
 $('#reload').on('click', function() { cropImage() });
 
+var reader = new FileReader();
+
+function displayLoadedImage(el) {
+  imageSrc = el.target.result;
+  $('#uploaded').attr('src', imageSrc);
+}
+
+$('#image_file').on('change', function() {
+  var $this = $(this);
+  var file = $this[0].files[0];
+  $(reader).on('load', displayLoadedImage);
+  reader.readAsDataURL(file);
+});
+
 });//]]>  
 
 </script>
@@ -104,6 +118,11 @@ $('#reload').on('click', function() { cropImage() });
 <style type="text/css"></style></head>
 <body>
   
+  <form id="upload_form" enctype="multipart/form-data" method="post">
+    <input type="file" name="image_file" id="image_file" />
+    <h2>Uploaded</h2>
+    <img id="uploaded" />
+  </form>
   
   <a href="#" id="reload">Reload</a>
 
