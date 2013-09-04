@@ -1,14 +1,13 @@
 $(document).ready(function() {
   var $uploadImage = $('#uploaded-image');
   var $previewImage = $('#preview-image');
+  var $previewImageLink = $('#preview-image-link');
 
-  function cropByHalf(imageSource) {
+  function cropImageTo(imageSource, width, height) {
     var tempImage = new Image();
     tempImage.src = imageSource;
 
-    var canvasWidth = 200;
-    var canvasHeight = 200;
-    var $canvas = $('<canvas width="'+ canvasWidth +'" height="'+ canvasHeight +'"/>');
+    var $canvas = $('<canvas width="'+ width +'" height="'+ height +'"/>');
 
     var ctx = $canvas.get(0).getContext('2d');
     ctx.drawImage(tempImage, 0, 0);
@@ -19,8 +18,9 @@ $(document).ready(function() {
 
   function displayLoadedImage(el) {
     imageSource = el.target.result;
-    croppedSource = cropByHalf(imageSource);
+    croppedSource = cropImageTo(imageSource, 200, 200);
     $previewImage.attr('src', croppedSource);
+    $previewImageLink.attr('href', croppedSource);
   }
 
   $uploadImage.on('change', function() {
