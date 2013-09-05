@@ -5,8 +5,6 @@ $(document).ready(function() {
   var $previewCropped = $('#preview-cropped');
 
   function updatePreview(imageSource, cropBox) {
-    console.log(cropBox);
-
     var ctx = $previewCropped.get(0).getContext('2d');
 
     var tempImage = new Image();
