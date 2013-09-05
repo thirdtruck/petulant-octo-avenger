@@ -16,11 +16,19 @@ $(document).ready(function() {
     return croppedSource;
   }
 
+  function updatePreview(cropBox) {
+  }
+
   function displayLoadedImage(el) {
     imageSource = el.target.result;
     croppedSource = cropImageTo(imageSource, 200, 200);
     $previewImage.attr('src', croppedSource);
     $previewImageLink.attr('href', croppedSource);
+    $previewImageLink.text('Download cropped image');
+    $previewImage.Jcrop({
+      onChange: updatePreview,
+      onSelect: updatePreview
+    });
   }
 
   $uploadImage.on('change', function() {
