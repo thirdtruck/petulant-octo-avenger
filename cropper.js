@@ -4,19 +4,6 @@ $(document).ready(function() {
   var $previewImageLink = $('#preview-image-link');
   var $previewCropped = $('#preview-cropped');
 
-  function cropImageTo(imageSource, width, height) {
-    var tempImage = new Image();
-    tempImage.src = imageSource;
-
-    var $canvas = $('<canvas width="'+ width +'" height="'+ height +'"/>');
-
-    var ctx = $canvas.get(0).getContext('2d');
-    ctx.drawImage(tempImage, 0, 0);
-    var croppedSource = $canvas.get(0).toDataURL();
-
-    return croppedSource;
-  }
-
   function updatePreview(imageSource, cropBox) {
     console.log(cropBox);
 
@@ -33,13 +20,12 @@ $(document).ready(function() {
 
   function displayLoadedImage(el) {
     imageSource = el.target.result;
-    croppedSource = cropImageTo(imageSource, 200, 200);
 
-    $previewImage.attr('src', croppedSource);
-    $previewImageLink.attr('href', croppedSource);
+    $previewImage.attr('src', imageSource);
+    $previewImageLink.attr('href', imageSource);
     $previewImageLink.text('Download cropped image');
     $previewImage.Jcrop({
-      onSelect: function(cropBox) { updatePreview(croppedSource, cropBox); }
+      onSelect: function(cropBox) { updatePreview(imageSource, cropBox); }
     });
   }
 
