@@ -2,6 +2,7 @@ $(document).ready(function() {
   var $uploadImage = $('#uploaded-image');
   var $previewImage = $('#preview-image');
   var $previewImageLink = $('#preview-image-link');
+  var $previewCropped = $('#preview-cropped');
 
   function cropImageTo(imageSource, width, height) {
     var tempImage = new Image();
@@ -16,18 +17,29 @@ $(document).ready(function() {
     return croppedSource;
   }
 
-  function updatePreview(cropBox) {
+  function updatePreview(imageSource, cropBox) {
+    console.log(cropBox);
+
+    var ctx = $previewCropped.get(0).getContext('2d');
+
+    var tempImage = new Image();
+    tempImage.src = imageSource;
+
+    $previewCropped.attr('width', cropBox.w);
+    $previewCropped.attr('height', cropBox.h);
+
+    ctx.drawImage(tempImage, cropBox.x, cropBox.y, cropBox.w, cropBox.h, 0, 0, cropBox.w, cropBox.h);
   }
 
   function displayLoadedImage(el) {
     imageSource = el.target.result;
     croppedSource = cropImageTo(imageSource, 200, 200);
+
     $previewImage.attr('src', croppedSource);
     $previewImageLink.attr('href', croppedSource);
     $previewImageLink.text('Download cropped image');
     $previewImage.Jcrop({
-      onChange: updatePreview,
-      onSelect: updatePreview
+      onSelect: function(cropBox) { updatePreview(croppedSource, cropBox); }
     });
   }
 
