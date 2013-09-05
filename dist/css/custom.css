@@ -4,6 +4,10 @@
   margin-right: auto;
 }
 
-#cropped-preview-header {
+.only-after-upload {
+  display: none;
+}
+
+.only-after-crop {
   display: none;
 }

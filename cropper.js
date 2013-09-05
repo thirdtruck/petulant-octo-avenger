@@ -15,7 +15,8 @@ $(document).ready(function() {
   var $previewImage = $('#'+previewImageID);
   var $previewImageLink = $('#preview-image-link');
   var $previewCropped = $('#preview-cropped');
-  var $croppedHeader = $('#cropped-preview-header');
+  var $onlyAfterUpload = $('.only-after-upload');
+  var $onlyAfterCrop = $('.only-after-crop');
 
   function updatePreview(imageSource, cropBox) {
     var ctx = $previewCropped.get(0).getContext('2d');
@@ -32,7 +33,8 @@ $(document).ready(function() {
   function displayLoadedImage(el) {
     imageSource = el.target.result;
 
-    $croppedHeader.hide();
+    $onlyAfterUpload.show();
+    $onlyAfterCrop.hide();
 
     $oldImage = $previewImage;
     $previewImage = $('<img id="#'+previewImageID+'" />')
@@ -47,7 +49,7 @@ $(document).ready(function() {
     $previewImage.Jcrop(
       {
         onSelect: function(cropBox) {
-          $croppedHeader.show();
+          $onlyAfterCrop.show();
           updatePreview(imageSource, cropBox);
         }
 
