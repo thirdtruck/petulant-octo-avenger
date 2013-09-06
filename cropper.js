@@ -37,17 +37,21 @@ $(document).ready(function() {
     $onlyAfterCrop.hide();
 
     $oldImage = $previewImage;
-    $previewImage = $('<img id="#'+previewImageID+'" />')
+    $previewImage = $('<img id="'+previewImageID+'" />')
     if(jcrop_api) {
       jcrop_api.destroy();
     }
     $previewImage.replaceAll($oldImage);
 
     $previewImage.attr('src', imageSource);
+
     $previewImageLink.attr('href', imageSource);
     $previewImageLink.text('Download cropped image');
+
     $previewImage.Jcrop(
       {
+        aspectRatio: 1,
+        setSelect: [0, 0, 200, 200],
         onSelect: function(cropBox) {
           $onlyAfterCrop.show();
           updatePreview(imageSource, cropBox);
