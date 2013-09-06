@@ -2,13 +2,13 @@ $(document).ready(function() {
   var previewImageID = 'preview-image';
 
   var jcrop_api;
-  var emptyCropBox = {
+  var defaultCropBox = {
     x: 0,
     y: 0,
     x2: 0,
     y2: 0,
-    w: 0,
-    h: 0
+    w: 200,
+    h: 200
   };
 
   var $uploadImage = $('#uploaded-image');
@@ -51,7 +51,7 @@ $(document).ready(function() {
     $previewImage.Jcrop(
       {
         aspectRatio: 1,
-        setSelect: [0, 0, 200, 200],
+        setSelect: [defaultCropBox.x, defaultCropBox.y, defaultCropBox.w, defaultCropBox.h],
         onSelect: function(cropBox) {
           $onlyAfterCrop.show();
           updatePreview(imageSource, cropBox);
@@ -60,7 +60,7 @@ $(document).ready(function() {
       },
       function() { jcrop_api = this; }
     );
-    updatePreview(imageSource, emptyCropBox);
+    updatePreview(imageSource, defaultCropBox);
   }
 
   $uploadImage.on('change', function() {
