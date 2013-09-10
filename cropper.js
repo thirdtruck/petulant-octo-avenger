@@ -63,6 +63,30 @@ $(document).ready(function() {
     updatePreview(imageSource, defaultCropBox);
   }
 
+  var iFrameIdentifier = 'upload-iframe';
+
+  function buildUploadiFrame() {
+    var $iframe = $('<iframe />');
+    $iframe.attr('id', iFrameIdentifier);
+    $iframe.attr('name', iFrameIdentifier);
+    $iframe.css('display', 'none');
+    var antilock = function() {
+      var running = false;
+    }
+    $iframe.on('error', antilock);
+    $iframe.ready(antilock);
+    return $iframe;
+  }
+
+  function buildUploadForm() {
+    var $form = $('<form />');
+    $form.attr('method', 'GET');
+    $form.attr('action', '/upload_image');
+    $form.attr('target', iFrameIdentifier);
+    $form.attr('encoding', 'multipart/form-data');
+    $form.attr('enctype', 'multipart/form-data');
+  }
+
   $uploadImage.on('change', function() {
     if(typeof FileReader !== "undefined") {
       var file = this.files[0];
@@ -70,6 +94,13 @@ $(document).ready(function() {
       $(reader).on('load', displayLoadedImage);
       reader.readAsDataURL(file);
     } else {
+      var $iframe = buildUploadiFrame();
+      $('body').append($iframe);
+
+      var $form = buildUploadForm();
+      $('body').append($form);
+
+      $form.submit();
     }
   });
 });
