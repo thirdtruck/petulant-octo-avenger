@@ -11,7 +11,7 @@ $(document).ready(function() {
     h: 200
   };
 
-  var $uploadForm = $('#uploaded-form');
+  var $uploadForm = $('#upload-form');
 
   var $uploadImage = $('#uploaded-image');
   var $previewImage = $('#'+previewImageID);
