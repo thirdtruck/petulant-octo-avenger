@@ -81,7 +81,7 @@ $(document).ready(function() {
 
   function buildUploadForm() {
     var $form = $('<form />');
-    $form.attr('method', 'GET');
+    $form.attr('method', 'POST');
     $form.attr('action', '/upload_image');
     $form.attr('target', iFrameIdentifier);
     $form.attr('encoding', 'multipart/form-data');
