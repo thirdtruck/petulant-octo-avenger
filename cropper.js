@@ -51,7 +51,7 @@ $(document).ready(function() {
     $form.append($clone);
     $form.append($submit);
 
-    $uploadImage.ajaxForm(function() {
+    $form.ajaxForm(function() {
       console.log("Completed ajax upload.");
       $.get('/uploaded_memory_jpg', function(imageTag) {
         console.log($previewImage, $previewImage.length, imageTag);
