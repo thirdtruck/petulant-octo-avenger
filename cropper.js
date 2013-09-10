@@ -119,7 +119,8 @@ $(document).ready(function() {
     var $form = buildUploadForm();
     $uploadForm.replaceWith($form);
 
-    $form.submit(function() {
+    $form.on('ajax:complete', function() {
+      console.log('ajax completed');
       $.get('/uploaded_memory_jpg', function(imageTag) {
         console.log($previewImage, $previewImage.length, imageTag);
         $previewImage.replaceWith(imageTag);
