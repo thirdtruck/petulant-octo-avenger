@@ -51,12 +51,15 @@ $(document).ready(function() {
     $form.append($clone);
     $form.append($submit);
 
-    $form.ajaxForm(function() {
-      console.log("Completed ajax upload.");
-      $.get('/uploaded_memory_jpg', function(imageTag) {
-        console.log($previewImage, $previewImage.length, imageTag);
-        $previewImage.replaceWith(imageTag);
-      });
+    //$form.ajaxForm({
+    $('form').ajaxForm({
+      complete: function() {
+        console.log("Completed ajax upload.");
+        $.get('/uploaded_memory_jpg', function(imageTag) {
+          console.log($previewImage, $previewImage.length, imageTag);
+          $previewImage.replaceWith(imageTag);
+        });
+      }
     });
 
     $clone.on('change', function() {
