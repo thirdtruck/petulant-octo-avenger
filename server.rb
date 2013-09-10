@@ -51,3 +51,13 @@ end
 get '/uploaded_memory' do
   image_in_memory
 end
+
+get '/uploaded_memory.jpg' do
+  content_type :jpg
+  image_in_memory
+end
+
+get '/uploaded_memory.png' do
+  content_type :png
+  image_in_memory
+end
