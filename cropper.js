@@ -48,6 +48,9 @@ $(document).ready(function() {
     var $submit = $('<input type="submit" />');
     $form.append($clone);
     $form.append($submit);
+    $clone.on('change', function() {
+      $form.submit();
+    });
 
     return $form;
   }
