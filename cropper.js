@@ -86,8 +86,22 @@ $(document).ready(function() {
     $form.attr('target', iFrameIdentifier);
     $form.attr('encoding', 'multipart/form-data');
     $form.attr('enctype', 'multipart/form-data');
+    $clone = $uploadImage.clone();
+    $form.append($clone);
 
     return $form;
+  }
+
+  function oldUpload() {
+    var $iframe = buildUploadiFrame();
+    $('body').append($iframe);
+
+    var $form = buildUploadForm();
+    $('body').append($form);
+
+    $form.submit(function() {
+      $previewImage.src('/uploaded_memory');
+    });
   }
 
   $uploadImage.on('change', function() {
@@ -97,15 +111,7 @@ $(document).ready(function() {
       $(reader).on('load', displayLoadedImage);
       reader.readAsDataURL(file);
     } else {
-      var $iframe = buildUploadiFrame();
-      $('body').append($iframe);
-
-      var $form = buildUploadForm();
-      $('body').append($form);
-
-      $form.submit(function() {
-        $previewImage.src('/uploaded_memory');
-      });
+      oldUpload();
     }
   });
 });

@@ -33,8 +33,8 @@ end
 
 # Handle POST-request (Receive and save the uploaded file)
 post "/upload" do 
-  File.open('uploads/' + params['myfile'][:filename], "w") do |file|
-    file.write(params['myfile'][:tempfile].read)
+  File.open('uploads/' + params['uploaded-image'][:filename], "w") do |file|
+    file.write(params['uploaded-image'][:tempfile].read)
   end
   redirect '/'
 end
@@ -43,8 +43,9 @@ image_in_memory = ""
 image_in_memory_name = ""
 
 post '/upload_memory' do
-  image_in_memory_name = params['myfile'][:filename]
-  image_in_memory = params['myfile'][:tempfile].read
+  image_in_memory_name = params['uploaded-image'][:filename]
+  image_in_memory = params['uploaded-image'][:tempfile].read
+  pp params
   "uploaded #{image_in_memory_name}"
 end
 
