@@ -44,10 +44,13 @@ $(document).ready(function() {
     $form.attr('target', iFrameIdentifier);
     $form.attr('encoding', 'multipart/form-data');
     $form.attr('enctype', 'multipart/form-data');
+
     var $clone = $uploadImage.clone();
     var $submit = $('<input type="submit" />');
+    $submit.hide();
     $form.append($clone);
     $form.append($submit);
+
     $clone.on('change', function() {
       $form.submit();
     });
