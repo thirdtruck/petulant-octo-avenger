@@ -122,9 +122,11 @@ $(document).ready(function() {
     $form.on('submit', function(event) {
       event.preventDefault();
 
+      console.log("Commencing ajax upload", $form.attr('action'), $form.attr('target'));
       $uploadImage.ajaxfileupload({
         'action': $form.attr('action'),
         'onComplete': function() {
+          console.log("Completed ajax upload.");
           $.get('/uploaded_memory_jpg', function(imageTag) {
             console.log($previewImage, $previewImage.length, imageTag);
             $previewImage.replaceWith(imageTag);
