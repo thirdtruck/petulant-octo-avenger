@@ -75,6 +75,7 @@ $(document).ready(function() {
     }
     $iframe.on('error', antilock);
     $iframe.ready(antilock);
+
     return $iframe;
   }
 
@@ -85,6 +86,8 @@ $(document).ready(function() {
     $form.attr('target', iFrameIdentifier);
     $form.attr('encoding', 'multipart/form-data');
     $form.attr('enctype', 'multipart/form-data');
+
+    return $form;
   }
 
   $uploadImage.on('change', function() {
