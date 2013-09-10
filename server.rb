@@ -39,3 +39,15 @@ post "/upload" do
   redirect '/'
 end
 
+image_in_memory = nil
+image_in_memory_name = nil
+
+post '/upload_memory' do
+  image_in_memory_name = params['myfile'][:filename]
+  image_in_memory = params['myfile'][:tempfile].read
+  "uploaded #{image_in_memory_name}"
+end
+
+get '/uploaded_memory' do
+  image_in_memory
+end
