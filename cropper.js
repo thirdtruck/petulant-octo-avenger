@@ -53,8 +53,18 @@ $(document).ready(function() {
 
     //$form.ajaxForm({
     $('form').ajaxForm({
-      complete: function() {
-        console.log("Completed ajax upload.");
+      uploadProgress: function(event, position, total, percentComplete) {
+        console.log(arguments);
+      },
+      success: function() {
+        console.log("Successful upload!");
+        $.get('/uploaded_memory_jpg', function(imageTag) {
+          console.log($previewImage, $previewImage.length, imageTag);
+          $previewImage.replaceWith(imageTag);
+        });
+      },
+      complete: function(xhr) {
+        console.log("Completed ajax upload: ", xhr.responseText);
         $.get('/uploaded_memory_jpg', function(imageTag) {
           console.log($previewImage, $previewImage.length, imageTag);
           $previewImage.replaceWith(imageTag);
