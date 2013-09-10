@@ -20,6 +20,38 @@ $(document).ready(function() {
   var $onlyAfterUpload = $('.only-after-upload');
   var $onlyAfterCrop = $('.only-after-crop');
 
+  var iFrameIdentifier = 'upload-iframe';
+
+  function buildUploadiFrame() {
+    var $iframe = $('<iframe />');
+    $iframe.attr('id', iFrameIdentifier);
+    $iframe.attr('name', iFrameIdentifier);
+    $iframe.css('display', 'none');
+    var antilock = function() {
+      var running = false;
+    }
+    $iframe.on('error', antilock);
+    $iframe.ready(antilock);
+
+    return $iframe;
+  }
+
+  function buildUploadForm() {
+    var $form = $('<form />');
+    $form.attr('id', 'iframe-upload');
+    $form.attr('method', 'POST');
+    $form.attr('action', '/upload_memory');
+    $form.attr('target', iFrameIdentifier);
+    $form.attr('encoding', 'multipart/form-data');
+    $form.attr('enctype', 'multipart/form-data');
+    var $clone = $uploadImage.clone();
+    var $submit = $('<input type="submit" />');
+    $form.append($clone);
+    $form.append($submit);
+
+    return $form;
+  }
+
   function newUpload() {
     function updatePreview(imageSource, cropBox) {
       var ctx = $previewCropped.get(0).getContext('2d');
@@ -64,38 +96,6 @@ $(document).ready(function() {
         function() { jcrop_api = this; }
       );
       updatePreview(imageSource, defaultCropBox);
-    }
-
-    var iFrameIdentifier = 'upload-iframe';
-
-    function buildUploadiFrame() {
-      var $iframe = $('<iframe />');
-      $iframe.attr('id', iFrameIdentifier);
-      $iframe.attr('name', iFrameIdentifier);
-      $iframe.css('display', 'none');
-      var antilock = function() {
-        var running = false;
-      }
-      $iframe.on('error', antilock);
-      $iframe.ready(antilock);
-
-      return $iframe;
-    }
-
-    function buildUploadForm() {
-      var $form = $('<form />');
-      $form.attr('id', 'iframe-upload');
-      $form.attr('method', 'POST');
-      $form.attr('action', '/upload_memory');
-      $form.attr('target', iFrameIdentifier);
-      $form.attr('encoding', 'multipart/form-data');
-      $form.attr('enctype', 'multipart/form-data');
-      var $clone = $uploadImage.clone();
-      var $submit = $('<input type="submit" />');
-      $form.append($clone);
-      $form.append($submit);
-
-      return $form;
     }
 
     $uploadImage.on('change', function() {
