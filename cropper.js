@@ -120,7 +120,9 @@ $(document).ready(function() {
     $uploadForm.replaceWith($form);
 
     $form.submit(function() {
+      console.log('hit submit');
       $.get('/uploaded_memory_jpg', function(image_tag) {
+        console.log('hit response');
         $previewImage.replaceWith(image_tag);
       });
     });
