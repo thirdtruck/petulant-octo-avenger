@@ -119,11 +119,16 @@ $(document).ready(function() {
     var $form = buildUploadForm();
     $uploadForm.replaceWith($form);
 
-    $form.on('ajax:complete', function() {
-      console.log('ajax completed');
-      $.get('/uploaded_memory_jpg', function(imageTag) {
-        console.log($previewImage, $previewImage.length, imageTag);
-        $previewImage.replaceWith(imageTag);
+    $form.on('submit', function(event) {
+      event.preventDefault();
+
+      var serializedData = $form.serialize();
+      $.post($form.attr('action'), serializedData, function(response) {
+        console.log('posted and got', response);
+        $.get('/uploaded_memory_jpg', function(imageTag) {
+          console.log($previewImage, $previewImage.length, imageTag);
+          $previewImage.replaceWith(imageTag);
+        });
       });
     });
   }
