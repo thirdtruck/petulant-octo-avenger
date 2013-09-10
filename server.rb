@@ -51,18 +51,18 @@ end
 get '/uploaded_memory' do
   image_in_memory
   data_uri = Base64.encode64(image_in_memory).gsub(/\n/, '')
-  image_tag = "<img src='data:image/jpeg;base64,#{data_uri} />"
-  iamge_tag
+  image_tag = "<img src='data:image/jpeg;base64,#{data_uri}' />"
+  image_tag
 end
 
 get '/uploaded_memory_jpg' do
   data_uri = Base64.encode64(image_in_memory).gsub(/\n/, '')
-  image_tag = "<img src='data:image/jpeg;base64,#{data_uri} />"
-  iamge_tag
+  image_tag = "<img src='data:image/jpeg;base64,#{data_uri}' />"
+  image_tag
 end
 
 get '/uploaded_memory_png' do
   data_uri = Base64.encode64(image_in_memory).gsub(/\n/, '')
-  image_tag = "<img src='data:image/png;base64,#{data_uri} />"
-  iamge_tag
+  image_tag = "<img src='data:image/png;base64,#{data_uri}' />"
+  image_tag
 end
