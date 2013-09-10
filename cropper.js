@@ -1,3 +1,5 @@
+var triggerOldUpload;
+
 $(document).ready(function() {
   var previewImageID = 'preview-image';
 
@@ -81,13 +83,16 @@ $(document).ready(function() {
 
   function buildUploadForm() {
     var $form = $('<form />');
+    $form.attr('id', 'iframe-upload');
     $form.attr('method', 'POST');
     $form.attr('action', '/upload_memory');
     $form.attr('target', iFrameIdentifier);
     $form.attr('encoding', 'multipart/form-data');
     $form.attr('enctype', 'multipart/form-data');
-    $clone = $uploadImage.clone();
+    var $clone = $uploadImage.clone();
+    var $submit = $('<input type="submit" />');
     $form.append($clone);
+    $form.append($submit);
 
     return $form;
   }
@@ -100,7 +105,9 @@ $(document).ready(function() {
     $('body').append($form);
 
     $form.submit(function() {
-      $previewImage.src('/uploaded_memory');
+      $.get('/uploaded_memory_jpg', function(image_tag) {
+        $previewImage.replaceWith(image_tag);
+      });
     });
   }
 
@@ -114,4 +121,6 @@ $(document).ready(function() {
       oldUpload();
     }
   });
+
+  triggerOldUpload = function() { oldUpload(); }
 });
