@@ -122,6 +122,17 @@ $(document).ready(function() {
     $form.on('submit', function(event) {
       event.preventDefault();
 
+      $uploadImage.ajaxfileupload({
+        'action': $form.attr('action'),
+        'onComplete': function() {
+          $.get('/uploaded_memory_jpg', function(imageTag) {
+            console.log($previewImage, $previewImage.length, imageTag);
+            $previewImage.replaceWith(imageTag);
+          });
+        }
+      });
+
+      /*
       var serializedData = $form.serialize();
       $.post($form.attr('action'), serializedData, function(response) {
         console.log('posted and got', response);
@@ -130,6 +141,7 @@ $(document).ready(function() {
           $previewImage.replaceWith(imageTag);
         });
       });
+      */
     });
   }
 
