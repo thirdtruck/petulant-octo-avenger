@@ -82,7 +82,7 @@ $(document).ready(function() {
   function buildUploadForm() {
     var $form = $('<form />');
     $form.attr('method', 'POST');
-    $form.attr('action', '/upload_image');
+    $form.attr('action', '/upload_memory');
     $form.attr('target', iFrameIdentifier);
     $form.attr('encoding', 'multipart/form-data');
     $form.attr('enctype', 'multipart/form-data');
@@ -103,7 +103,9 @@ $(document).ready(function() {
       var $form = buildUploadForm();
       $('body').append($form);
 
-      $form.submit();
+      $form.submit(function() {
+        $previewImage.src('/uploaded_memory');
+      });
     }
   });
 });
