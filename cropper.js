@@ -64,9 +64,12 @@ $(document).ready(function() {
   }
 
   $uploadImage.on('change', function() {
-    var file = this.files[0];
-    var reader = new FileReader();
-    $(reader).on('load', displayLoadedImage);
-    reader.readAsDataURL(file);
+    if(typeof FileReader !== "undefined") {
+      var file = this.files[0];
+      var reader = new FileReader();
+      $(reader).on('load', displayLoadedImage);
+      reader.readAsDataURL(file);
+    } else {
+    }
   });
 });
