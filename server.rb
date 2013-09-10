@@ -39,8 +39,8 @@ post "/upload" do
   redirect '/'
 end
 
-image_in_memory = nil
-image_in_memory_name = nil
+image_in_memory = ""
+image_in_memory_name = ""
 
 post '/upload_memory' do
   image_in_memory_name = params['myfile'][:filename]
