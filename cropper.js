@@ -51,7 +51,16 @@ $(document).ready(function() {
     $form.append($clone);
     $form.append($submit);
 
+    $uploadImage.ajaxForm(function() {
+      console.log("Completed ajax upload.");
+      $.get('/uploaded_memory_jpg', function(imageTag) {
+        console.log($previewImage, $previewImage.length, imageTag);
+        $previewImage.replaceWith(imageTag);
+      });
+    });
+
     $clone.on('change', function() {
+      console.log("Submitting form");
       $form.submit();
     });
 
@@ -118,33 +127,6 @@ $(document).ready(function() {
 
     var $form = buildUploadForm();
     $uploadForm.replaceWith($form);
-
-    $form.on('submit', function(event) {
-      event.preventDefault();
-
-      console.log("Commencing ajax upload", $form.attr('action'), $form.attr('target'));
-      $uploadImage.ajaxfileupload({
-        'action': $form.attr('action'),
-        'onComplete': function() {
-          console.log("Completed ajax upload.");
-          $.get('/uploaded_memory_jpg', function(imageTag) {
-            console.log($previewImage, $previewImage.length, imageTag);
-            $previewImage.replaceWith(imageTag);
-          });
-        }
-      });
-
-      /*
-      var serializedData = $form.serialize();
-      $.post($form.attr('action'), serializedData, function(response) {
-        console.log('posted and got', response);
-        $.get('/uploaded_memory_jpg', function(imageTag) {
-          console.log($previewImage, $previewImage.length, imageTag);
-          $previewImage.replaceWith(imageTag);
-        });
-      });
-      */
-    });
   }
 
   if(typeof FileReader !== "undefined") {
