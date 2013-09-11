@@ -54,6 +54,7 @@ $(document).ready(function() {
     $form.append($submit);
 
     //$form.ajaxForm({
+    /*
     $('form').ajaxForm({
       uploadProgress: function(event, position, total, percentComplete) {
         console.log(arguments);
@@ -73,6 +74,7 @@ $(document).ready(function() {
         });
       }
     });
+    */
 
     $clone.on('change', function() {
       console.log("Submitting form");
