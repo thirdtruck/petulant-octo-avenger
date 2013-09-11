@@ -42,10 +42,9 @@ end
 image_in_memory = ""
 image_in_memory_name = ""
 
-def image_tag
-  data_uri = Base64.encode64(image_in_memory).gsub(/\n/, '')
-  image_tag = "<img src='data:image/jpeg;base64,#{data_uri}' />"
-  image_tag
+def image_tag(memory_image)
+  data_uri = Base64.encode64(memory_image).gsub(/\n/, '')
+  "<img src='data:image/jpeg;base64,#{data_uri}' />"
 end
 
 post '/upload_memory' do
@@ -60,13 +59,13 @@ get '/uploaded_memory' do
 end
 
 get '/uploaded_memory_jpg' do
-  image_tag
+  image_tag(image_in_memory)
 end
 
 get '/uploaded_memory_png' do
-  image_tag
+  image_tag(image_in_memory)
 end
 
 get '/uploaded_memory_page' do
-  "<!doctype html><html><body>#{image_tag}</body></html>"
+  "<!doctype html><html><body>#{image_tag(image_in_memory)}</body></html>"
 end
