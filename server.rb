@@ -39,23 +39,36 @@ post "/upload" do
   redirect '/'
 end
 
+get '/crop' do
+  erb :crop
+end
+
 image_in_memory = ""
 image_in_memory_name = ""
 
-def image_tag(memory_image)
+def image_tag_src(memory_image)
   data_uri = Base64.encode64(memory_image).gsub(/\n/, '')
-  "<img src='data:image/jpeg;base64,#{data_uri}' />"
+  "data:image/jpeg;base64,#{data_uri}"
+end
+
+def image_tag(memory_image)
+  "<img src='#{image_tag_src(memory_image)}' />"
 end
 
 post '/upload_memory' do
   pp params
   image_in_memory_name = params['uploaded-image'][:filename]
   image_in_memory = params['uploaded-image'][:tempfile].read
-  redirect '/uploaded_memory_page'
+  redirect '/crop'
 end
 
 get '/uploaded_memory' do
   image_in_memory
+end
+
+get '/uploaded_memory_src' do
+  content_type :png
+  image_tag_src(image_in_memory)
 end
 
 get '/uploaded_memory_jpg' do
