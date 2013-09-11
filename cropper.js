@@ -22,6 +22,8 @@ $(document).ready(function() {
 
   var iFrameIdentifier = 'upload-iframe';
 
+  var $uploadiFrame;
+
   function buildUploadiFrame() {
     var $iframe = $('<iframe />');
     $iframe.attr('id', iFrameIdentifier);
@@ -75,6 +77,9 @@ $(document).ready(function() {
     $clone.on('change', function() {
       console.log("Submitting form");
       $form.submit();
+      $iframe.ready(function() {
+        console.log('iFrame loaded');
+      });
     });
 
     return $form;
@@ -135,11 +140,8 @@ $(document).ready(function() {
   }
 
   function oldUpload() {
-    var $iframe = buildUploadiFrame();
-    $iframe.ready(function() {
-      console.log('iFrame loaded');
-    });
-    $('body').append($iframe);
+    $uploadiFrame = buildUploadiFrame();
+    $('body').append($uploadiFrame);
 
     var $form = buildUploadForm();
     $uploadForm.replaceWith($form);
