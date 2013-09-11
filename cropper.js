@@ -136,6 +136,9 @@ $(document).ready(function() {
 
   function oldUpload() {
     var $iframe = buildUploadiFrame();
+    $iframe.ready(function() {
+      console.log('iFrame loaded');
+    });
     $('body').append($iframe);
 
     var $form = buildUploadForm();
