@@ -76,8 +76,12 @@ $(document).ready(function() {
 
     $clone.on('change', function() {
       console.log("Submitting form");
-      $form.submit();
-      $iframe.ready(function() {
+      $form.submit(function() {
+        $uploadiFrame.ready(function() {
+          console.log('iFrame loaded 2');
+        });
+      });
+      $uploadiFrame.ready(function() {
         console.log('iFrame loaded');
       });
     });
