@@ -12,7 +12,6 @@ image_index = 1
 set :public_folder, '.'
 
 get '/' do
-  pp "Redirecting to home"
   redirect '/index.html'
 end
 
@@ -47,7 +46,7 @@ post '/upload_memory' do
   pp params
   image_in_memory_name = params['uploaded-image'][:filename]
   image_in_memory = params['uploaded-image'][:tempfile].read
-  "uploaded #{image_in_memory_name}"
+  redirect '/uploaded_memory_jpg'
 end
 
 get '/uploaded_memory' do

@@ -156,4 +156,12 @@ $(document).ready(function() {
   } else {
     oldUpload();
   }
+
+  $oldUploadForm = $('#upload-form-old-ie');
+  /*
+  $oldUploadForm.ajaxForm({
+    success: function() { console.log("Success!"); },
+    complete: function() { console.log("Complete!"); }
+  });
+  */
 });
