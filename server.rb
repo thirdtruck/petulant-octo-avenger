@@ -42,28 +42,31 @@ end
 image_in_memory = ""
 image_in_memory_name = ""
 
+def image_tag
+  data_uri = Base64.encode64(image_in_memory).gsub(/\n/, '')
+  image_tag = "<img src='data:image/jpeg;base64,#{data_uri}' />"
+  image_tag
+end
+
 post '/upload_memory' do
   pp params
   image_in_memory_name = params['uploaded-image'][:filename]
   image_in_memory = params['uploaded-image'][:tempfile].read
-  redirect '/uploaded_memory_jpg'
+  redirect '/uploaded_memory_page'
 end
 
 get '/uploaded_memory' do
   image_in_memory
-  data_uri = Base64.encode64(image_in_memory).gsub(/\n/, '')
-  image_tag = "<img src='data:image/jpeg;base64,#{data_uri}' />"
-  image_tag
 end
 
 get '/uploaded_memory_jpg' do
-  data_uri = Base64.encode64(image_in_memory).gsub(/\n/, '')
-  image_tag = "<img src='data:image/jpeg;base64,#{data_uri}' />"
   image_tag
 end
 
 get '/uploaded_memory_png' do
-  data_uri = Base64.encode64(image_in_memory).gsub(/\n/, '')
-  image_tag = "<img src='data:image/png;base64,#{data_uri}' />"
   image_tag
+end
+
+get '/uploaded_memory_page' do
+  "<!doctype html><html><body>#{image_tag}</body></html>"
 end
