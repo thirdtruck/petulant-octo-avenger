@@ -171,7 +171,7 @@
             'top':settings.crop_y+settings.viewport_content_top
           })
           .bind('click mouseup mousedown', function(the_event) {
-            event.preventDefault();
+            the_event.preventDefault();
             $image.trigger(the_event);
           });
           /*.draggable({
