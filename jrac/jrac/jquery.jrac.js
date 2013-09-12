@@ -165,8 +165,10 @@
 
           function passThrough($pass_from, $pass_to) {
             $pass_from.bind('mouseup mousedown', function(the_event) {
+              console.log('here');
               the_event.preventDefault();
               $pass_to.trigger(the_event);
+              console.log('and here');
               return false;
             });
           }
