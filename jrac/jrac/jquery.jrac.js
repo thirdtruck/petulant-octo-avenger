@@ -162,6 +162,13 @@
             }
           });
 
+          function passThrough($pass_from, $pass_to) {
+            $pass_from.bind('click mouseup mousedown', function(the_event) {
+              the_event.preventDefault();
+              $pass_to.trigger(the_event);
+            });
+          }
+
           // Build the crop element
           var $crop = $('<div class="jrac_crop"><div class="jrac_crop_drag_handler"></div></div>')
           .css({
@@ -169,11 +176,8 @@
             'height': settings.crop_height,
             'left':settings.crop_x+settings.viewport_content_left,
             'top':settings.crop_y+settings.viewport_content_top
-          })
-          .bind('click mouseup mousedown', function(the_event) {
-            the_event.preventDefault();
-            $image.trigger(the_event);
           });
+          passThrough($crop, $image);
           /*.draggable({
             containment: $viewport,
             handle: 'div.jrac_crop_drag_handler',
@@ -202,6 +206,11 @@
           }
           $viewport.append($crop);
         }
+
+        // Build the overlay
+        var $overlay = $('<div class="jrac_crop_overlay" />');
+        passThrough($viewport, $image)
+        $viewport.append($overlay);
 
         // Extend viewport witch usefull objects as it will be exposed to user
         // functions interface

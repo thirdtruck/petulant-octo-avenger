@@ -47,6 +47,6 @@ pre.code {
 
 /* Override some jrac css */
 .jrac_viewport {
-  width:440px;
-  height:330px;
+  width:400px;
+  height:400px;
 }

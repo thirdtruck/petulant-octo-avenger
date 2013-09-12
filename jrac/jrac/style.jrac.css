@@ -41,3 +41,11 @@
 .jrac_viewport img, .jrac_crop_drag_handler {
   cursor: pointer;
 }
+
+.jrac_crop_overlay {
+  width: 400px;
+  height: 400px;
+  background-image: url('images/crop_overlay.png');
+  background-position: center center;
+  position: absolute;
+}
