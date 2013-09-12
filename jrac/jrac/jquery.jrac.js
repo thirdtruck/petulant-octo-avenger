@@ -161,22 +161,39 @@
               }
             }
           });
-          $image.bind('mousedown', function(the_event) {
-              the_event.stopPropagation();
-              if(the_event.cancelBubble) {
-                the_event.cancelBubble();
-              }
-          });
 
-          function passThrough($pass_from, $pass_to) {
-            $pass_from.bind('mouseup mousedown', function(the_event) {
-              console.log('here');
-              the_event.preventDefault();
-              $pass_to.trigger(the_event);
-              console.log('and here');
-              return false;
-            });
-          }
+          var passThrough;
+
+          (function() {
+
+            var last_event;
+
+            var passThroughInner = function($pass_from, $pass_to) {
+              $pass_from.bind('mousedown', function(the_event) {
+                console.log('here', the_event);
+
+                the_event.preventDefault();
+
+                if(the_event == last_event) {
+                  console.log('but here');
+                  the_event.stopPropagation();
+                  if(typeof the_event.cancelBubble == 'function') {
+                    the_event.cancelBubble();
+                  }
+                } else {
+                  console.log('rather here');
+                  last_event = the_event;
+                  $pass_to.trigger(the_event);
+                }
+
+                console.log('and here');
+
+                return false;
+              });
+            }
+
+            passThrough = passThroughInner;
+          })();
 
           // Build the crop element
           var $crop = $('<div class="jrac_crop"><div class="jrac_crop_drag_handler"></div></div>')
