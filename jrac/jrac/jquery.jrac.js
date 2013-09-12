@@ -159,8 +159,11 @@
               if (ui.position.top != ui.originalPosition.top) {
                 $viewport.observator.notify('jrac_crop_y', $viewport.observator.crop_position_y());
               }
-              event.stopPropagation();
             }
+          });
+          $image.bind('mousedown', function(the_event) {
+              the_event.preventDefault();
+              the_event.stopPropagation();
           });
 
           function passThrough($pass_from, $pass_to) {
