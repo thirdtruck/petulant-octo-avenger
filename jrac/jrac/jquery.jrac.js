@@ -177,7 +177,6 @@
             'left':settings.crop_x+settings.viewport_content_left,
             'top':settings.crop_y+settings.viewport_content_top
           });
-          passThrough($crop, $image);
           /*.draggable({
             containment: $viewport,
             handle: 'div.jrac_crop_drag_handler',
