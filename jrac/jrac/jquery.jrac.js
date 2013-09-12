@@ -159,11 +159,12 @@
               if (ui.position.top != ui.originalPosition.top) {
                 $viewport.observator.notify('jrac_crop_y', $viewport.observator.crop_position_y());
               }
+              event.stopPropagation();
             }
           });
 
           function passThrough($pass_from, $pass_to) {
-            $pass_from.bind('click mouseup mousedown', function(the_event) {
+            $pass_from.bind('mouseup mousedown', function(the_event) {
               the_event.preventDefault();
               $pass_to.trigger(the_event);
               return false;
