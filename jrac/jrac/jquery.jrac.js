@@ -162,8 +162,10 @@
             }
           });
           $image.bind('mousedown', function(the_event) {
-              the_event.preventDefault();
               the_event.stopPropagation();
+              if(the_event.cancelBubble) {
+                the_event.cancelBubble();
+              }
           });
 
           function passThrough($pass_from, $pass_to) {
