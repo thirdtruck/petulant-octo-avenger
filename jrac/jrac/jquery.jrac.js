@@ -166,6 +166,7 @@
             $pass_from.bind('click mouseup mousedown', function(the_event) {
               the_event.preventDefault();
               $pass_to.trigger(the_event);
+              return false;
             });
           }
 
