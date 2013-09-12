@@ -22,9 +22,11 @@
 .jrac_crop {
   position: absolute;
   border: 1px solid yellow;
+  /* Enables click-through of the crop div
   pointer-events: none;
   filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='', sizingMethod='scale');
   background: none !important;
+  */
 }
 
 .jrac_crop_drag_handler {

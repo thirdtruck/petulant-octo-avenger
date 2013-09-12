@@ -169,7 +169,12 @@
             'height': settings.crop_height,
             'left':settings.crop_x+settings.viewport_content_left,
             'top':settings.crop_y+settings.viewport_content_top
-          })/*.draggable({
+          })
+          .bind('click mouseup mousedown', function(the_event) {
+            event.preventDefault();
+            $image.trigger(the_event);
+          });
+          /*.draggable({
             containment: $viewport,
             handle: 'div.jrac_crop_drag_handler',
             drag: function(event, ui) {
